@@ -1,0 +1,16 @@
+<h1>View Category</h1>
+<a href="/#/add-category" class="btn btn-primary">Add Category</a>
+<br>
+<br>
+<table class="table table-striped table-hover table-bordered">
+	<thead>
+		<th>Category Names</th>
+		<th>Action</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="names in categoryNames">
+			<td>{{names.CategoryName}}</td>
+			<td><a href="/#/modify-category/{{names.id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;<span class="glyphicon glyphicon-trash" ng-click="deleteCategory(names.id)"></span></td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,32 @@
+{
+  "name": "supplier",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "supplierName": {
+      "type": "string"
+    },
+    "contactNumber": {
+      "type": "number"
+    },
+    "email": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "dlNumber": {
+      "type": "number"
+    },
+    "gstin": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

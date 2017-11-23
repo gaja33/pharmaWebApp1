@@ -1,0 +1,51 @@
+<h1>Add Purchase</h1>
+
+<form name="Purchase">
+	<div class="form-group">
+		<label for="supplier">Supplier</label>
+		<select class="form-control col-sm-3" id="category" ng-model="purchase.supplier">
+		<option value="{{supplierName.supplierName}}" ng-repeat="supplierName in supplierNames">{{supplierName.supplierName}}</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="invoicenumber">Invoice Number</label>
+		<input type="text" class="form-control col-sm-3" id="invoicenumber" ng-model="purchase.invoiceNumber">
+	</div>
+	<div class="form-group">
+		<label for="invoicedate">Invoice Date</label>
+		<input type="text" class="form-control col-sm-3" id="invoicedate" ng-model="purchase.invoiceDate">
+	</div>
+	<div class="form-group">
+		<label for="manufacturer">Manufacturer</label>
+		<input type="text" class="form-control col-sm-3" id="manufacturer" ng-model="purchase.manufacturer">
+	</div>
+	<div class="form-group">
+		<label for="quantity">Quantity</label>
+		<input type="text" class="form-control col-sm-3" id="quantity" ng-model="purchase.quantity">
+	</div>
+	<div class="form-group">
+		<label for="mrp">MRP</label>
+		<input type="text" class="form-control col-sm-3" id="mrp" ng-model="purchase.mrp">
+	</div>
+	<div class="form-group">
+		<label for="rate">Rate</label>
+		<input type="text" class="form-control col-sm-3" id="rate" ng-model="purchase.rate">
+	</div>
+	<div class="form-group">
+		<label for="netPrice">Net Price</label>
+		<input type="text" class="form-control col-sm-3" id="netPrice" ng-model="purchase.netPrice">
+	</div>
+	<div class="form-group">
+		<label for="vat">VAT(%)</label>
+		<input type="text" class="form-control col-sm-3" id="vat" ng-model="purchase.vat">
+	</div>
+	<div class="form-group">
+		<label for="disc">Discount</label>
+		<input type="text" class="form-control col-sm-3" id="disc" ng-model="purchase.discount">
+	</div>
+	<br/>
+	<br/>
+	<button type="submit" class="btn btn-success" ng-click="purchaseSave(purchase)" ng-show="Add">Save</button>
+	<button type="submit" class="btn btn-success" ng-click="purchaseUpdate(purchase)" ng-show="Update">Update</button>
+	<button type="button" class="btn btn-default">Cancel</button>
+</form>

@@ -1,0 +1,44 @@
+{
+  "name": "purchase",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "supplier": {
+      "type": "string"
+    },
+    "invoiceNumber": {
+      "type": "number"
+    },
+    "invoiceDate": {
+      "type": "date"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "mrp": {
+      "type": "number"
+    },
+    "rate": {
+      "type": "number"
+    },
+    "netPrice": {
+      "type": "number"
+    },
+    "vat": {
+      "type": "number"
+    },
+    "discount": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="stylesheet" href="css/styles.css">-->
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <!-- Ionicons -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+    <!-- Theme style -->
+    <!--<link rel="stylesheet" href="css/AdminLTE.min.css">
+
+    <link rel="stylesheet" href="css/skin-blue.min.css">-->
+	<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+
+<body ng-app="kamakshiJewellersApp">
+   	<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#">Age</a></li>
+        <li><a href="#">Gender</a></li>
+        <li><a href="#">Geo</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="/#/view-category">Category</a></li>
+        <li><a href="/#/view-supplier">Supplier</a></li>
+        <li><a href="/#/view-customer">Customers</a></li>
+        <li><a href="/#/view-medicine">Medicines</a></li>
+        <li><a href="/#/view-purchase">Purchase</a></li>
+          <li><a href="/#/sale">Sale</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9">
+	<div ng-view></div>
+    </div>
+  </div>
+</div>
+	
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+        ! function(A, n, g, u, l, a, r) {
+            A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+                    (A[l].q = A[l].q || []).push(arguments)
+                }, A[l].l = +new Date, a = n.createElement(g),
+                r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+        }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-XXXXX-X');
+        ga('send', 'pageview');
+
+    </script>
+
+
+    <script src="lib/jquery.js"></script>
+    <script src="lib/admin.js"></script>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-animate.js"></script>
+    <script src="lib/angular-aria.js"></script>
+    <script src="lib/angular-cookies.js"></script>
+    <script src="lib/angular-messages.js"></script>
+    <script src="lib/angular-resource.js"></script>
+    <script src="lib/angular-route.js"></script>
+    <script src="lib/angular-sanitize.js"></script>
+    <script src="lib/angular-touch.js"></script>
+    <script src="lib/angular-file-upload.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
+
+
+
+    <script src="scripts/app.js"></script>
+    
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/category/add-category.js"></script>
+    <script src="scripts/controllers/category/view-category.js"></script>
+    <script src="scripts/controllers/category/modify-category.js"></script>
+    <script src="scripts/controllers/supplier/view-supplier.js"></script>
+    <script src="scripts/controllers/supplier/add-supplier.js"></script>
+    <script src="scripts/controllers/supplier/modify-supplier.js"></script>
+    <script src="scripts/controllers/customer/view-customer.js"></script>
+    <script src="scripts/controllers/customer/add-customer.js"></script>
+    <script src="scripts/controllers/customer/modify-customer.js"></script>
+    <script src="scripts/controllers/medicine/view-medicine.js"></script>
+    <script src="scripts/controllers/medicine/add-medicine.js"></script>
+    <script src="scripts/controllers/medicine/modify-medicine.js"></script>
+    <script src="scripts/controllers/purchase/view-purchase.js"></script>
+    <script src="scripts/controllers/purchase/add-purchase.js"></script>
+    <script src="scripts/controllers/purchase/modify-purchase.js"></script>
+    <script src="scripts/controllers/sale/sale.js"></script>
+    
+
+    <!-- Bootstrap 3.3.6 -->
+    <script src="css/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

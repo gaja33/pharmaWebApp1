@@ -1,0 +1,42 @@
+<h1>View Medicine</h1>
+<a href="/#/add-medicine" class="btn btn-primary">Add Medicine</a>
+<br>
+<br>
+<table class="table table-striped table-hover table-bordered">
+	<thead>
+		<th>Medicine Name</th>
+		<th>Category</th>
+		<th>Dosage</th>
+		<th>Quantity</th>
+		<th>Batch</th>
+		<th>Manufacturer</th>
+		<th>Desc</th>
+		<th>Manuf Date</th>
+		<th>Exp Date</th>
+		<th>MRP</th>
+		<th>Buy Price</th>
+		<th>Sell Price</th>
+		<th>VAT%</th>
+		<th>Discount</th>
+		<th>Action</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="medicine in medicines">
+			<td>{{medicine.medicineName}}</td>
+			<td>{{medicine.category}}</td>
+			<td>{{medicine.dosage}}</td>
+			<td>{{medicine.quantity}}</td>
+			<td>{{medicine.batch}}</td>
+			<td>{{medicine.manufacturer}}</td>
+			<td>{{medicine.description}}</td>
+			<td>{{medicine.manDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+			<td>{{medicine.expDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+			<td>{{medicine.mrp}}</td>
+			<td>{{medicine.buyPrice}}</td>
+			<td>{{medicine.selPrice}}</td>
+			<td>{{medicine.vat}}</td>
+			<td>{{medicine.discount}}</td>
+			<td><a href="/#/modify-medicine/{{medicine.id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;<span class="glyphicon glyphicon-trash" ng-click="deleteMedicine(medicine.id)"></span></td>
+		</tr>
+	</tbody>
+</table>

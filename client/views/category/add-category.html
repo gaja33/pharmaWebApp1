@@ -1,0 +1,13 @@
+<h1>Add Category</h1>
+
+<form name="Category">
+  <div class="form-group">
+    <label for="addCategory">Category Name</label>
+    <input type="text" class="form-control col-sm-3" id="addCategory" ng-model="category.CategoryName">
+  </div>
+	<br/>
+	<br/>
+  <button type="submit" class="btn btn-success" ng-click="categorySave(category)" ng-show="Add">Save</button>
+  <button type="submit" class="btn btn-success" ng-click="categoryUpdate(category)" ng-show="Update">Update</button>
+  <button type="button" class="btn btn-default">Cancel</button>
+</form>
