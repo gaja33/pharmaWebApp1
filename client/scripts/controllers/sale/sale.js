@@ -12,7 +12,7 @@ angular.module('kamakshiJewellersApp')
 
         $scope.sale = {};
 
-        $scope.showEdit = false
+       
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2020, 5, 22),
@@ -81,5 +81,19 @@ angular.module('kamakshiJewellersApp')
             }
 
         }
+		
+		 $scope.showEditFlag = false;
+	
+		$scope.showEdit = function(){
+			$scope.showEditFlag = true;
+		}
+		
+		$scope.saveEditedData = function(edited){
+			$scope.showEditFlag = false;
+			console.log("edited",edited);
+			console.log("$scope.tableData",$scope.tableData);
+			$scope.tableData[0].amount = $scope.tableData[0].selPrice * edited.currQuantity;
+			
+		}
 
     });

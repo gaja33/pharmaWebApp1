@@ -79,15 +79,15 @@
                     <tr ng-repeat="table in tableData track by $index">
                         <td>{{table.medicineName}}</td>
                         <td>
-                            <span ng-if="!showEdit">{{table.currQuantity}}</span>
-                            <span ng-if="showEdit"><input type="number" class="form-control col-sm-3" ng-model="editQuantity" ng-change="calculateTotal(sale.currQuantity)"></span>
+                            <span ng-if="!showEditFlag">{{table.currQuantity}}</span>
+                            <span ng-if="showEditFlag"><input type="number" class="form-control col-sm-3" ng-model="table.currQuantity" ng-change="calculateTotal(sale.currQuantity)"></span>
                         
                         </td>
                         <td>{{table.dosage}}</td>
                         <td>{{table.selPrice}}</td>
                         <td>{{table.amount}}</td>
-                        <td> <span class="glyphicon glyphicon-pencil" ng-if="!showEdit" ng-click="showEdit=!showEdit"></span>
-                             <span class="glyphicon glyphicon-floppy-disk" ng-if="showEdit" ng-click="showEdit=false"></span>
+                        <td> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit()"></span>
+                             <span class="glyphicon glyphicon-floppy-disk" ng-if="showEditFlag" ng-click="saveEditedData(table)"></span>
                             <span class="glyphicon glyphicon-trash"></span>
                         </td>
                     </tr>
