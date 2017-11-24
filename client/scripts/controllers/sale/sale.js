@@ -12,7 +12,6 @@ angular.module('kamakshiJewellersApp')
 
         $scope.sale = {};
 
-       
         $scope.dateOptions = {
             formatYear: 'yy',
             maxDate: new Date(2020, 5, 22),
@@ -49,7 +48,7 @@ angular.module('kamakshiJewellersApp')
             console.log("$scope.sale.amount", $scope.sale.amount)
         }
 
-        $scope.checkForDuplicate = function(sourceArray, val) {
+        $scope.checkForDuplicate = function (sourceArray, val) {
             for (var i = 0; i < sourceArray.length; i++) {
                 if (sourceArray[i].id == val.id) {
                     return "exist"
@@ -62,6 +61,7 @@ angular.module('kamakshiJewellersApp')
         $scope.tableData = [];
         $scope.loopData = [];
 
+        $scope.totalAmount = 0;
         $scope.addToTable = function (obj) {
 
             var dataToPushed = angular.copy(obj);
@@ -79,21 +79,46 @@ angular.module('kamakshiJewellersApp')
                 $scope.tableData.push(dataToPushed);
                 $scope.loopData = angular.copy($scope.tableData);
             }
+            console.log("$scope.tableData",$scope.tableData);
+            
+            
+            for(var i=0; i<$scope.tableData.length;i++){
+                $scope.totalAmount +=$scope.tableData[i].amount; 
+            }
+            console.log("$scope.totalAmount",$scope.totalAmount);
+        }
+        
+        
+        $scope.delItem = function(idx){
+            $scope.tableData.splice(idx,1);
+            $scope.totalAmount = 0;
+            for(var i=0; i<$scope.tableData.length;i++){
+                $scope.totalAmount +=$scope.tableData[i].amount; 
+            }
+        }
+
+        $scope.showEditFlag = false;
+
+        $scope.showEdit = function (idx) {
+            $scope.editIndex = idx;
+            $scope.showEditFlag = true;
+        }
+
+        $scope.saveEditedData = function (idx, edited) {
+            $scope.editIndex = -1;
+            $scope.showEditFlag = false;
+            console.log("edited", edited);
+            console.log("$scope.tableData", $scope.tableData);
+            $scope.tableData[idx].amount = $scope.tableData[idx].selPrice * edited.currQuantity;
 
         }
-		
-		 $scope.showEditFlag = false;
-	
-		$scope.showEdit = function(){
-			$scope.showEditFlag = true;
-		}
-		
-		$scope.saveEditedData = function(edited){
-			$scope.showEditFlag = false;
-			console.log("edited",edited);
-			console.log("$scope.tableData",$scope.tableData);
-			$scope.tableData[0].amount = $scope.tableData[0].selPrice * edited.currQuantity;
-			
-		}
+        
+        $scope.calculateGrandAmount =function(dis){
+            $scope.disAmount = ($scope.totalAmount * parseInt(dis))/100;
+            
+            $scope.grandAmount = $scope.totalAmount-$scope.disAmount;
+        }
+
+
 
     });

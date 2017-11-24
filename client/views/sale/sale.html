@@ -54,6 +54,7 @@
         <div class="form-group">
             <label>Ammount</label>
             <input type="text" class="form-control col-sm-3" ng-model="sale.amount">
+            <input type="hidden" ng-model="sale.totalAmount" ng-init="sale.totalAmount = 0" />
         </div>
     </div>
     <div class="col-sm-2">
@@ -79,16 +80,17 @@
                     <tr ng-repeat="table in tableData track by $index">
                         <td>{{table.medicineName}}</td>
                         <td>
-                            <span ng-if="!showEditFlag">{{table.currQuantity}}</span>
-                            <span ng-if="showEditFlag"><input type="number" class="form-control col-sm-3" ng-model="table.currQuantity" ng-change="calculateTotal(sale.currQuantity)"></span>
+                            <!--<span ng-if="!showEditFlag">{{table.currQuantity}}</span>-->
+                            <span ng-hide="editIndex == $index">{{table.currQuantity}}</span>
+                            <span ng-if="editIndex == $index"><input type="number" class="form-control col-sm-3" ng-model="table.currQuantity" ng-change="calculateTotal(sale.currQuantity)"></span>
                         
                         </td>
                         <td>{{table.dosage}}</td>
                         <td>{{table.selPrice}}</td>
                         <td>{{table.amount}}</td>
-                        <td> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit()"></span>
-                             <span class="glyphicon glyphicon-floppy-disk" ng-if="showEditFlag" ng-click="saveEditedData(table)"></span>
-                            <span class="glyphicon glyphicon-trash"></span>
+                        <td> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit($index)"></span>
+                             <span class="glyphicon glyphicon-floppy-disk" ng-if="showEditFlag" ng-click="saveEditedData($index,table)"></span>
+                            <span class="glyphicon glyphicon-trash" ng-click="delItem($index)"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -98,23 +100,23 @@
     <div class="col-sm-3">
 		<div class="form-group">
             <label>Total Amount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.totalAmount">
+            <input type="text" class="form-control col-sm-3" ng-model="totalAmount">
         </div>
 		<div class="form-group">
             <label>Discount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.discount">
+            <input type="text" class="form-control col-sm-3" ng-model="instaDiscount" ng-change="calculateGrandAmount(instaDiscount)">
         </div>
 		<div class="form-group">
             <label>Grand Amount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.grandAmount">
+            <input type="text" class="form-control col-sm-3" ng-model="grandAmount">
         </div>
 		<div class="form-group">
             <label>Paid</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.paid">
+            <input type="text" class="form-control col-sm-3" ng-model="paid">
         </div>
 		<div class="form-group">
             <label>Change</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.change">
+            <input type="text" class="form-control col-sm-3" ng-model="change">
         </div>
     </div>
 </div>
