@@ -62,5 +62,9 @@
   "purchase": {
     "dataSource": "postgres",
     "public": true
+  },
+  "sale": {
+    "dataSource": "postgres",
+    "public": true
   }
 }

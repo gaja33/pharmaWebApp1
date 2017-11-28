@@ -37,10 +37,15 @@ angular.module('kamakshiJewellersApp')
             //console.log("label", label)
             //console.log("event", event)
 
-
-
-            $scope.sale = item;
-            $scope.sale.expDate = new Date(item.expDate);
+            if (item.quantity == 0) {
+                $scope.sale = item;
+                $scope.sale.expDate = new Date(item.expDate);
+                
+                console.log("Out od Stock")
+            } else {
+                $scope.sale = item;
+                $scope.sale.expDate = new Date(item.expDate);
+            }
         }
 
         $scope.calculateTotal = function (val) {
@@ -49,19 +54,27 @@ angular.module('kamakshiJewellersApp')
         }
 
         $scope.checkForDuplicate = function (sourceArray, val) {
+
             for (var i = 0; i < sourceArray.length; i++) {
                 if (sourceArray[i].id == val.id) {
-                    return "exist"
+                    i = sourceArray.length - 1;
+                    if (i == sourceArray.length - 1) {
+                        return "exist"
+                    }
                 } else {
-                    return "not exist"
+                    if (i == sourceArray.length - 1) {
+                        return "not exist"
+                    }
+
                 }
             }
+
         }
 
         $scope.tableData = [];
         $scope.loopData = [];
 
-        $scope.totalAmount = 0;
+
         $scope.addToTable = function (obj) {
 
             var dataToPushed = angular.copy(obj);
@@ -79,21 +92,23 @@ angular.module('kamakshiJewellersApp')
                 $scope.tableData.push(dataToPushed);
                 $scope.loopData = angular.copy($scope.tableData);
             }
-            console.log("$scope.tableData",$scope.tableData);
-            
-            
-            for(var i=0; i<$scope.tableData.length;i++){
-                $scope.totalAmount +=$scope.tableData[i].amount; 
-            }
-            console.log("$scope.totalAmount",$scope.totalAmount);
-        }
-        
-        
-        $scope.delItem = function(idx){
-            $scope.tableData.splice(idx,1);
+
+            $scope.sale = {};
+            console.log("$scope.tableData", $scope.tableData);
+
             $scope.totalAmount = 0;
-            for(var i=0; i<$scope.tableData.length;i++){
-                $scope.totalAmount +=$scope.tableData[i].amount; 
+            for (var i = 0; i < $scope.tableData.length; i++) {
+                $scope.totalAmount += $scope.tableData[i].amount;
+            }
+            console.log("$scope.totalAmount", $scope.totalAmount);
+        }
+
+
+        $scope.delItem = function (idx) {
+            $scope.tableData.splice(idx, 1);
+            $scope.totalAmount = 0;
+            for (var i = 0; i < $scope.tableData.length; i++) {
+                $scope.totalAmount += $scope.tableData[i].amount;
             }
         }
 
@@ -112,11 +127,47 @@ angular.module('kamakshiJewellersApp')
             $scope.tableData[idx].amount = $scope.tableData[idx].selPrice * edited.currQuantity;
 
         }
-        
-        $scope.calculateGrandAmount =function(dis){
-            $scope.disAmount = ($scope.totalAmount * parseInt(dis))/100;
-            
-            $scope.grandAmount = $scope.totalAmount-$scope.disAmount;
+
+        $scope.calculateGrandAmount = function (dis) {
+            $scope.disAmount = ($scope.totalAmount * parseInt(dis)) / 100;
+
+            $scope.grandAmount = $scope.totalAmount - $scope.disAmount;
+        }
+
+        $scope.saveSalesDetails = function (arr) {
+            console.log("sale", arr)
+
+            $http.post('/api/sales', arr).then(function (resp) {
+                console.log("saleresp", resp)
+            })
+        }
+
+        $scope.printData = function (arr) {
+            console.log("arr1", arr)
+
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].medicineid = arr[i].id;
+
+                var quan = arr[i].quantity - arr[i].currQuantity;
+                $http.put('/api/medicines/' + arr[i].id, {
+                    "quantity": quan
+                }).then(function (resp) {
+                    console.log("saleresp", resp)
+                })
+            }
+
+
+            $http.post('/api/sales', arr).then(function (resp) {
+                console.log("saleresp", resp)
+            })
+
+
+            /*var divToPrint = document.getElementById("printTable");
+            var newWin = window.open("");
+            console.log(divToPrint)
+            newWin.document.write(divToPrint.outerHTML);
+            newWin.print();
+            newWin.close();*/
         }
 
 

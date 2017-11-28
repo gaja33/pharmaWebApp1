@@ -1,0 +1,32 @@
+{
+  "name": "sale",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "medicineName": {
+      "type": "string"
+    },
+    "currQuantity": {
+      "type": "number"
+    },
+    "dosage": {
+      "type": "string"
+    },
+    "selPrice": {
+      "type": "number"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "medicineid": {
+      "type": "number"
+    }     
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

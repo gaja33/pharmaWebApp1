@@ -1,11 +1,11 @@
 <h1>Add Sale</h1>
-
+<form name="myForm">
 <div class="row" style="margin:0;">
     <div class="col-sm-2">
         <div class="form-group">
             <label>Medicine Name</label>
             <!--<pre>Model: {{asyncSelected | json}}</pre>-->
-            <input type="text" ng-model="sale.medicineName" placeholder="Locations loaded via $http" uib-typeahead="data.medicineName for data in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="onMedSelect($item, $model, $label, $event)">
+            <input type="text" ng-model="sale.medicineName" placeholder="Locations loaded via $http" uib-typeahead="data.medicineName for data in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="onMedSelect($item, $model, $label, $event)" required>
             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
             <div ng-show="noResults">
                 <i class="glyphicon glyphicon-remove"></i> No Results Found
@@ -15,26 +15,26 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label>Available</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.quantity">
+            <input type="text" class="form-control col-sm-3" ng-model="sale.quantity" required>
         </div>
     </div>
     <div class="col-sm-2">
         <div class="form-group">
             <label>Quantity</label>
-            <input type="number" class="form-control col-sm-3" ng-model="sale.currQuantity" ng-change="calculateTotal(sale.currQuantity)">
+            <input type="number" class="form-control col-sm-3" ng-model="sale.currQuantity" ng-change="calculateTotal(sale.currQuantity)" ng-disabled="sale.quantity == 0" required>
         </div>
     </div>
     <div class="col-sm-2">
         <div class="form-group">
             <label>Dosage</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.dosage">
+            <input type="text" class="form-control col-sm-3" ng-model="sale.dosage" required>
         </div>
     </div>
     <div class="col-sm-2">
         <div class="form-group">
             <label>Exp Date</label>
             <p class="input-group">
-                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="sale.expDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" />
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="sale.expDate" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" required/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -44,7 +44,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label>Selling Price</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.selPrice">
+            <input type="text" class="form-control col-sm-3" ng-model="sale.selPrice" required>
         </div>
     </div>
 
@@ -53,19 +53,19 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label>Ammount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="sale.amount">
-            <input type="hidden" ng-model="sale.totalAmount" ng-init="sale.totalAmount = 0" />
+            <input type="text" class="form-control col-sm-3" ng-model="sale.amount" required>
         </div>
     </div>
     <div class="col-sm-2">
-        <button type="button" class="btn btn-primary" ng-click="addToTable(sale)">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="addToTable(sale)" ng-disabled="myForm.$invalid">Add</button>
     </div>
 </div>
+</form>
 <br/>
 <div class="row" style="margin:0;">
     <div class="col-sm-9">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" id="printTable">
                 <thead>
                     <tr>
                         <th>Medicine Name</th>
@@ -117,6 +117,11 @@
 		<div class="form-group">
             <label>Change</label>
             <input type="text" class="form-control col-sm-3" ng-model="change">
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <button type="button" class="btn btn-success btn-sm" ng-click="printData(tableData)">Print</button>
         </div>
     </div>
 </div>
