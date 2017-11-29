@@ -23,7 +23,13 @@
     },
     "medicineid": {
       "type": "number"
-    }     
+    },
+    "invoice": {
+      "type": "number"
+    },
+    "invoiceDate": {
+      "type": "date"
+    }       
   },
   "validations": [],
   "relations": {},

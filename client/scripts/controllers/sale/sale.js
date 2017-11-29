@@ -8,9 +8,25 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-    .controller('AddSaleCtrl', function ($scope, $http, $timeout) {
+    .controller('AddSaleCtrl', function ($scope, $http, $timeout, $route) {
 
         $scope.sale = {};
+        $scope.invoiceDate = new Date();
+
+        $http.get('/api/sales').then(function (resp) {
+            console.log("saleR", resp.data)
+            if (resp.data.length == 0) {
+                $scope.invoice = 1001;
+            } else {
+                $http.get('/api/sales?filter[order]=invoice%20DESC&filter[limit]=1').then(function (resp) {
+                    console.log("invoice", resp.data[0])
+
+                    $scope.invoice = resp.data[0].invoice + 1;
+
+                });
+            }
+        })
+
 
         $scope.dateOptions = {
             formatYear: 'yy',
@@ -40,7 +56,7 @@ angular.module('kamakshiJewellersApp')
             if (item.quantity == 0) {
                 $scope.sale = item;
                 $scope.sale.expDate = new Date(item.expDate);
-                
+
                 console.log("Out od Stock")
             } else {
                 $scope.sale = item;
@@ -75,8 +91,10 @@ angular.module('kamakshiJewellersApp')
         $scope.loopData = [];
 
 
-        $scope.addToTable = function (obj) {
-
+        $scope.addToTable = function (obj, inv,invDate) {
+            obj.invoice = inv;
+            obj.invoiceDate = invDate;
+            
             var dataToPushed = angular.copy(obj);
             if ($scope.tableData.length != 0) {
 
@@ -142,33 +160,53 @@ angular.module('kamakshiJewellersApp')
             })
         }
 
+
+
         $scope.printData = function (arr) {
             console.log("arr1", arr)
 
-            for (var i = 0; i < arr.length; i++) {
-                arr[i].medicineid = arr[i].id;
 
-                var quan = arr[i].quantity - arr[i].currQuantity;
-                $http.put('/api/medicines/' + arr[i].id, {
-                    "quantity": quan
-                }).then(function (resp) {
-                    console.log("saleresp", resp)
-                })
-            }
-
-
-            $http.post('/api/sales', arr).then(function (resp) {
-                console.log("saleresp", resp)
-            })
-
-
-            /*var divToPrint = document.getElementById("printTable");
+            var divToPrint = document.getElementById("printTable");
             var newWin = window.open("");
-            console.log(divToPrint)
+            //console.log(divToPrint)
             newWin.document.write(divToPrint.outerHTML);
             newWin.print();
-            newWin.close();*/
+            newWin.close();
+
+            var r = confirm("Did you print the bill?");
+            if (r == true) {
+
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i].medicineid = arr[i].id;
+
+                    var quan = arr[i].quantity - arr[i].currQuantity;
+                    $http.put('/api/medicines/' + arr[i].id, {
+                        "quantity": quan
+                    }).then(function (resp) {
+                        console.log("saleresp", resp)
+                    })
+                }
+
+
+                for (var j = 0; j < arr.length; j++) {
+                    delete arr[j].id;
+                }
+
+                console.log("PostArray", arr)
+
+                $http.post('/api/sales', arr).then(function (resp) {
+                    console.log("saleresp", resp)
+                })
+
+                $route.reload();
+            } else {
+                console.log("Canceled")
+            }
+
         }
+
+
+        /**/
 
 
 

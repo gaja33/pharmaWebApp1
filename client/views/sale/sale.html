@@ -1,5 +1,6 @@
-<h1>Add Sale</h1>
 <form name="myForm">
+<h1>Add Sale <small>{{invoiceDate|date:'dd-MMMM-yyyy'}}</small></h1>
+
 <div class="row" style="margin:0;">
     <div class="col-sm-2">
         <div class="form-group">
@@ -57,7 +58,13 @@
         </div>
     </div>
     <div class="col-sm-2">
-        <button type="button" class="btn btn-primary" ng-click="addToTable(sale)" ng-disabled="myForm.$invalid">Add</button>
+        <div class="form-group">
+            <label>Invoice Number</label>
+            <input type="text" class="form-control col-sm-3" ng-model="invoice" required>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <button type="button" class="btn btn-primary" ng-click="addToTable(sale,invoice,invoiceDate)" ng-disabled="myForm.$invalid">Add</button>
     </div>
 </div>
 </form>
