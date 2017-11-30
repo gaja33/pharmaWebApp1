@@ -1,12 +1,12 @@
 <form name="myForm">
-<h1>Add Sale <small>{{invoiceDate|date:'dd-MMMM-yyyy'}}</small></h1>
+<h1>Add Sale <small id="invDate">{{invoiceDate|date:'dd-MMMM-yyyy'}}</small></h1>
 
 <div class="row" style="margin:0;">
     <div class="col-sm-2">
         <div class="form-group">
             <label>Medicine Name</label>
             <!--<pre>Model: {{asyncSelected | json}}</pre>-->
-            <input type="text" ng-model="sale.medicineName" placeholder="Locations loaded via $http" uib-typeahead="data.medicineName for data in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="onMedSelect($item, $model, $label, $event)" required>
+            <input type="text" ng-model="sale.medicineName" placeholder="Search Medicine" uib-typeahead="data.medicineName for data in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="onMedSelect($item, $model, $label, $event)" required>
             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
             <div ng-show="noResults">
                 <i class="glyphicon glyphicon-remove"></i> No Results Found
@@ -60,10 +60,11 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label>Invoice Number</label>
-            <input type="text" class="form-control col-sm-3" ng-model="invoice" required>
+            <input type="text" class="form-control col-sm-3" ng-model="invoice" id="invNum" required>
         </div>
     </div>
     <div class="col-sm-2">
+        <br>
         <button type="button" class="btn btn-primary" ng-click="addToTable(sale,invoice,invoiceDate)" ng-disabled="myForm.$invalid">Add</button>
     </div>
 </div>
@@ -72,7 +73,7 @@
 <div class="row" style="margin:0;">
     <div class="col-sm-9">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="printTable">
+            <table width="100%" class="table table-bordered table-hover" id="printTable">
                 <thead>
                     <tr>
                         <th>Medicine Name</th>
@@ -80,7 +81,7 @@
                         <th>Dosage</th>
                         <th>Unit Price</th>
                         <th>Total Amount</th>
-                        <th>Action</th>
+                        <th class="hideActionColumn">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,13 +90,13 @@
                         <td>
                             <!--<span ng-if="!showEditFlag">{{table.currQuantity}}</span>-->
                             <span ng-hide="editIndex == $index">{{table.currQuantity}}</span>
-                            <span ng-if="editIndex == $index"><input type="number" class="form-control col-sm-3" ng-model="table.currQuantity" ng-change="calculateTotal(sale.currQuantity)"></span>
+                            <span ng-if="editIndex == $index"><input type="number" class="form-control col-sm-3" ng-model="table.currQuantity"></span>
                         
                         </td>
                         <td>{{table.dosage}}</td>
-                        <td>{{table.selPrice}}</td>
-                        <td>{{table.amount}}</td>
-                        <td> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit($index)"></span>
+                        <td class="align-right">{{table.selPrice}}</td>
+                        <td class="align-right">{{table.amount}}</td>
+                        <td class="hideActionColumn"> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit($index)"></span>
                              <span class="glyphicon glyphicon-floppy-disk" ng-if="showEditFlag" ng-click="saveEditedData($index,table)"></span>
                             <span class="glyphicon glyphicon-trash" ng-click="delItem($index)"></span>
                         </td>
@@ -107,23 +108,23 @@
     <div class="col-sm-3">
 		<div class="form-group">
             <label>Total Amount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="totalAmount">
+            <input type="text" class="form-control col-sm-3" ng-model="totalAmount" id="totAmt">
         </div>
 		<div class="form-group">
             <label>Discount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="instaDiscount" ng-change="calculateGrandAmount(instaDiscount)">
+            <input type="text" class="form-control col-sm-3" ng-model="instaDiscount" ng-change="calculateGrandAmount(instaDiscount)" id="dis">
         </div>
 		<div class="form-group">
             <label>Grand Amount</label>
-            <input type="text" class="form-control col-sm-3" ng-model="grandAmount">
+            <input type="text" class="form-control col-sm-3" ng-model="grandAmount" id="graAmt">
         </div>
 		<div class="form-group">
             <label>Paid</label>
-            <input type="text" class="form-control col-sm-3" ng-model="paid">
+            <input type="text" class="form-control col-sm-3" ng-model="paid" ng-change="calculateChange(paid,grandAmount)" id="pay">
         </div>
 		<div class="form-group">
             <label>Change</label>
-            <input type="text" class="form-control col-sm-3" ng-model="change">
+            <input type="text" class="form-control col-sm-3" ng-model="change" id="chang">
         </div>
         <br>
         <br>
