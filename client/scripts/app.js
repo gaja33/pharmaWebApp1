@@ -91,6 +91,10 @@ angular
 				templateUrl: 'views/sale/sale.html',
 				controller: 'AddSaleCtrl'
 			})
+			.when('/view-sale', {
+				templateUrl: 'views/sale/view-sales.html',
+				controller: 'ViewSaleCtrl'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
