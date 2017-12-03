@@ -24,7 +24,7 @@ angular
 	.config(function ($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'views/home.html',
+				templateUrl: 'views/home/home.html',
 				controller: 'HomeCtrl'
 			})
 			.when('/add-category', {

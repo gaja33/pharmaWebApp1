@@ -15,6 +15,25 @@ angular.module('kamakshiJewellersApp')
 
 		$scope.purchase = {};
 	
+		$scope.dateOptions = {
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            startingDay: 1
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+	
+		$scope.popup1 = {
+            opened: false
+        };
+
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+		
+	
 		$http.get('/api/suppliers').then(function (resp) {
 			console.log("resp", resp)
 			$scope.supplierNames = resp.data;
