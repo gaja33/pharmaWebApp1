@@ -1,32 +1,41 @@
 {
-  "name": "supplier",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "supplierName": {
-      "type": "string"
+    "name": "supplier",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
     },
-    "contactNumber": {
-      "type": "number"
+    "properties": {
+        "supplierName": {
+            "type": "string"
+        },
+        "contactNumber": {
+            "type": "number",
+            "postgresql": {
+                "dataType": "bigint"
+            }
+        },
+        "email": {
+            "type": "string"
+        },
+        "address": {
+            "type": "string"
+        },
+        "dlNumber": {
+            "type": "number",
+            "postgresql": {
+                "dataType": "bigint"
+            }
+        },
+        "gstin": {
+            "type": "number",
+            "postgresql": {
+                "dataType": "bigint"
+            }
+        }
     },
-    "email": {
-      "type": "string"
-    },
-    "address": {
-      "type": "string"
-    },
-    "dlNumber": {
-      "type": "number"
-    },
-    "gstin": {
-      "type": "number"
-    }
-  },
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {}
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
 }

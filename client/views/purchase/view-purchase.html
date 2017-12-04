@@ -4,30 +4,28 @@
 <br>
 <table class="table table-striped table-hover table-bordered">
 	<thead>
-		<th>Supplier</th>
 		<th>Invoice Number</th>
 		<th>Invoice Date</th>
-		<th>Manufacturer</th>
-		<th>Quantity</th>
-		<th>MRP</th>
-		<th>Rate</th>
-		<th>Net Price</th>
-		<th>VAT%</th>
+        <th>Supplier</th>
+		<th>Sub Total</th>
 		<th>Discount</th>
+		<th>Total</th>
+		<th>Balance</th>
+		<th>Grand Total</th>
+		<th>Paid</th>
 		<th>Action</th>
 	</thead>
 	<tbody>
 		<tr ng-repeat="purchase in purchases">
-			<td>{{purchase.supplier}}</td>
 			<td>{{purchase.invoiceNumber}}</td>
 			<td>{{purchase.invoiceDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
-			<td>{{purchase.manufacturer}}</td>
-			<td>{{purchase.quantity}}</td>
-			<td>{{purchase.mrp}}</td>
-			<td>{{purchase.rate}}</td>
-			<td>{{purchase.netPrice}}</td>
-			<td>{{purchase.vat}}</td>
+            <td>{{purchase.supplier}}</td>
+			<td>{{purchase.subTotal}}</td>
 			<td>{{purchase.discount}}</td>
+			<td>{{purchase.total}}</td>
+			<td>{{purchase.prevBalance}}</td>
+			<td>{{purchase.grandTotal}}</td>
+			<td>{{purchase.paid}}</td>
 			<td><a href="/#/modify-purchase/{{purchase.id}}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;<span class="glyphicon glyphicon-trash" ng-click="deletePurchase(purchase.id)"></span></td>
 		</tr>
 	</tbody>
