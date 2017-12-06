@@ -25,9 +25,9 @@
                 <div class="form-group">
                     <label for="invoicedate">Invoice Date</label>
                     <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="purchase.invoiceDate" is-open="InvDatePopup.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" required/>
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="purchase.invoiceDate" is-open="InvDatePopup.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-click="openInvDate()" required/>
                         <span class="input-group-btn">
-                    	<button type="button" class="btn btn-default"  ng-click="openInvDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    	<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
                 		</span>
                     </p>
                 </div>
@@ -126,9 +126,9 @@
                                 <label for="manufactureDate">Manufacture Date</label>
                                 <!--<input type="text" class="form-control" id="manufactureDate" ng-model="medicine.manDate">-->
                                 <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{formatman}}" ng-model="medicine.manDate" is-open="ManDatePopup.opened" datepicker-options="dateOptionsMan" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{formatman}}" ng-model="medicine.manDate" is-open="ManDatePopup.opened" datepicker-options="dateOptionsMan" close-text="Close" alt-input-formats="altInputFormats" ng-click="openManDate()" />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="openManDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
                                 </p>
                             </div>
@@ -138,10 +138,10 @@
                                 <label for="expDate">Expire Date</label>
                                 <!--<input type="text" class="form-control" id="expDate" ng-model="medicine.expDate">-->
                                 <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{formatman}}" ng-model="medicine.expDate" is-open="ExpDatePopup.opened" datepicker-options="dateOptionsMan" close-text="Close" alt-input-formats="altInputFormats" />
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{formatman}}" ng-model="medicine.expDate" is-open="ExpDatePopup.opened" datepicker-options="dateOptionsMan" close-text="Close" alt-input-formats="altInputFormats" ng-click="openExpDate()" />
                                     <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openExpDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
+                                        <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
                                 </p>
                             </div>
                         </div>
@@ -295,8 +295,8 @@
                             <input type="number" class="form-control" placeholder="Balance" ng-model="purchase.prevBalance">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success" ng-click="purchaseSave(purchase)">Save</button>
+                    <div class="form-group" style="margin-left:15px;">
+                        <button type="submit" class="btn btn-success btn-flat" ng-click="purchaseSave(purchase,medArray)">Save</button>
                     </div>
                 </form>
             </div>
