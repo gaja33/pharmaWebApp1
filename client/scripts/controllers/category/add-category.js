@@ -8,32 +8,38 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-	.controller('AddCategoryCtrl', function ($scope,$rootScope, $http, $location, $timeout, $routeParams) {
-		
-			$scope.Update = false;
-			$scope.Add = true;
-		if($location.path() == '/add-category'){
-			$rootScope.active = 'active';
-		}
-		
-		$scope.category = {};
+    .controller('AddCategoryCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams,$uibModalInstance,$route  ) {
 
-		$scope.categorySave = function (obj) {
-			console.log("obj", obj)
-			$http.post('/api/CategoryNames', obj).then(function (resp) {
-				console.log("resp", resp)
-				if (resp.status == 200) {
-					$scope.category = {};
-					$scope.Category.$setPristine();
-					$scope.Category.$setUntouched();
-					
-					$timeout(function(){
-						$location.path('/view-category')
-					},500)
-					
-				}
-			})
-		}
-		
-		
-	});
+        $scope.Update = false;
+        $scope.Add = true;
+        
+        $scope.headerName = "Add";
+
+        $scope.category = {};
+
+        $scope.categorySave = function (obj) {
+            console.log("obj", obj)
+            $http.post('/api/CategoryNames', obj).then(function (resp) {
+                console.log("resp", resp)
+                if (resp.status == 200) {
+                    console.log("Saved Succesfully")
+                    $scope.category = {};
+                    $scope.Category.$setPristine();
+                    $scope.Category.$setUntouched();
+                    
+                    $scope.cancel();
+                    $route.reload();
+                    /*$timeout(function () {
+                        $location.path('/view-category')
+                    }, 500)*/
+
+                }
+            })
+        }
+        
+        $scope.cancel = function () {
+            $uibModalInstance.close();
+        };
+
+
+    });

@@ -8,36 +8,53 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-	.controller('ModifyCategoryCtrl', function ($scope, $http, $location, $timeout, $routeParams) {
+    .controller('ModifyCategoryCtrl', function ($scope, $http, $location, $timeout, $routeParams, getId, $uibModalInstance,$route) {
 
-			$scope.Update = true;
-			$scope.Add = false;
-		
-		$scope.category = {};
-		
-		var currentId = $routeParams.id;
-			$http.get('/api/CategoryNames/'+currentId).then(function(resp){
-				console.log(resp)
-				$scope.category = resp.data;
-			})
-		
-		
-		$scope.categoryUpdate = function (obj) {
-			console.log("obj", obj)
-			$http.put('/api/CategoryNames', obj).then(function (resp) {
-				if (resp.status == 200) {
-					$scope.category = {};
-					$scope.Category.$setPristine();
-					$scope.Category.$setUntouched();
-					
-					$timeout(function(){
-						$location.path('/view-category')
-					},500)
-					
-				}
-			})
-		}
-		
-		
-		
-	});
+        $scope.Update = true;
+        $scope.Add = false;
+
+        $scope.headerName = "Update";
+
+        $scope.category = {};
+
+        $scope.getId = getId;
+
+        console.log("id", $scope.getId)
+
+        /*var currentId = $routeParams.id;
+        $http.get('/api/CategoryNames/' + currentId).then(function (resp) {
+            console.log(resp)
+            $scope.category = resp.data;
+        })*/
+
+        $http.get('/api/CategoryNames/' + $scope.getId).then(function (resp) {
+            console.log(resp)
+            $scope.category = resp.data;
+        })
+
+
+        $scope.categoryUpdate = function (obj) {
+            console.log("obj", obj)
+            $http.put('/api/CategoryNames', obj).then(function (resp) {
+                if (resp.status == 200) {
+                    $scope.category = {};
+                    $scope.Category.$setPristine();
+                    $scope.Category.$setUntouched();
+                    
+                    $scope.cancel();
+                    $route.reload();
+                    /*$timeout(function () {
+                        $location.path('/view-category')
+                    }, 500)*/
+
+                }
+            })
+        }
+
+        $scope.cancel = function () {
+            $uibModalInstance.close();
+        };
+
+
+
+    });
