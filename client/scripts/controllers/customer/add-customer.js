@@ -8,33 +8,41 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-    .controller('AddCustomerCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
+	.controller('AddCustomerCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams, $uibModalInstance, $route) {
 
-        $scope.Update = false;
-        $scope.Add = true;
+		$scope.Update = false;
+		$scope.Add = true;
 
-        $scope.customer = {};
+		$scope.headerName = "Add";
 
-        $scope.customerSave = function (obj) {
-            console.log("obj", obj)
-            $http.post('/api/customers', obj).then(function (resp) {
-                console.log("resp", resp)
-                if (resp.status == 200) {
-                    console.log("Saved Successfully")
-                    
-                    $scope.customer = {};
-                    $scope.Customer.$setPristine();
-                    $scope.Customer.$setUntouched();
+		$scope.customer = {};
 
-                    $timeout(function () {
-                        $location.path('/view-customer')
-                    }, 500)
+		$scope.customerSave = function (obj) {
+			console.log("obj", obj)
+			$http.post('/api/customers', obj).then(function (resp) {
+				console.log("resp", resp)
+				if (resp.status == 200) {
+					console.log("Saved Successfully")
 
-                }
-            }, function errorCallback(response) {
-                console.log("resp", response)
-            })
-        }
+					$scope.customer = {};
+					$scope.Customer.$setPristine();
+					$scope.Customer.$setUntouched();
+
+					$scope.cancel();
+					$route.reload();
+					/*$timeout(function () {
+					    $location.path('/view-customer')
+					}, 500)*/
+
+				}
+			}, function errorCallback(response) {
+				console.log("resp", response)
+			})
+		}
+
+		$scope.cancel = function () {
+			$uibModalInstance.close();
+		};
 
 
-    });
+	});

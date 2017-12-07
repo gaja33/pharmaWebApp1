@@ -34,7 +34,9 @@ angular.module('kamakshiJewellersApp')
                     }, 500)*/
 
                 }
-            })
+            }, function errorCallback(response) {
+				console.log("resp", response)
+			})
         }
         
         $scope.cancel = function () {

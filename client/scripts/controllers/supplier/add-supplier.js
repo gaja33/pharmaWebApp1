@@ -8,10 +8,12 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-	.controller('AddSupplierCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
+	.controller('AddSupplierCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams, $uibModalInstance, $route) {
 
 		$scope.Update = false;
 		$scope.Add = true;
+
+		$scope.headerName = "Add";
 
 		$scope.supplier = {};
 
@@ -20,17 +22,24 @@ angular.module('kamakshiJewellersApp')
 			$http.post('/api/suppliers', obj).then(function (resp) {
 				console.log("resp", resp)
 				if (resp.status == 200) {
+					console.log("Saved Succesfully")
 					$scope.supplier = {};
 					$scope.Supplier.$setPristine();
 					$scope.Supplier.$setUntouched();
 
-					$timeout(function () {
+					$scope.cancel();
+					$route.reload();
+					/*$timeout(function () {
 						$location.path('/view-supplier')
-					}, 500)
+					}, 500)*/
 
 				}
+			}, function errorCallback(response) {
+				console.log("resp", response)
 			})
 		}
 
-
+		$scope.cancel = function () {
+			$uibModalInstance.close();
+		};
 	});

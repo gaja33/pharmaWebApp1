@@ -52,15 +52,15 @@ angular
 				controller: 'ModifySupplierCtrl'
 			})
 			.when('/view-customer', {
-				templateUrl: 'views/costumer/view-customer.html',
+				templateUrl: 'views/customer/view-customer.html',
 				controller: 'ViewCustomerCtrl'
 			})
 			.when('/add-customer', {
-				templateUrl: 'views/costumer/add-customer.html',
+				templateUrl: 'views/customer/add-customer.html',
 				controller: 'AddCustomerCtrl'
 			})
 			.when('/modify-customer/:id', {
-				templateUrl: 'views/costumer/add-customer.html',
+				templateUrl: 'views/customer/add-customer.html',
 				controller: 'ModifyCustomerCtrl'
 			})
 			.when('/view-medicine', {
