@@ -8,13 +8,20 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-    .controller('AddSaleCtrl', function ($scope, $http, $timeout, $route,$filter) {
+    .controller('AddSaleCtrl', function ($scope, $http, $timeout, $route, $filter,$interval) {
 
         $scope.sale = {};
-        $scope.invoiceDate = new Date();
         
-        $scope.invDate = $filter('date')(new Date(),'dd-MM-yyyy');
-    
+
+        var tick = function () {
+            //$scope.clock = Date.now();
+            $scope.invoiceDate = Date.now();
+        }
+        tick();
+        $interval(tick, 1000);
+
+        $scope.invDate = $filter('date')(new Date(), 'dd-MM-yyyy');
+
         $http.get('/api/sales').then(function (resp) {
             console.log("saleR", resp.data)
             if (resp.data.length == 0) {
@@ -22,7 +29,6 @@ angular.module('kamakshiJewellersApp')
             } else {
                 $http.get('/api/sales?filter[order]=invoice%20DESC&filter[limit]=1').then(function (resp) {
                     console.log("invoice", resp.data[0])
-
                     $scope.invoice = resp.data[0].invoice + 1;
 
                 });
@@ -93,10 +99,10 @@ angular.module('kamakshiJewellersApp')
         $scope.loopData = [];
 
 
-        $scope.addToTable = function (obj, inv,invDate) {
+        $scope.addToTable = function (obj, inv, invDate) {
             obj.invoice = inv;
             obj.invoiceDate = invDate;
-            
+
             var dataToPushed = angular.copy(obj);
             if ($scope.tableData.length != 0) {
 
@@ -146,7 +152,7 @@ angular.module('kamakshiJewellersApp')
             console.log("edited", edited);
             console.log("$scope.tableData", $scope.tableData);
             $scope.tableData[idx].amount = $scope.tableData[idx].selPrice * edited.currQuantity;
-            
+
             console.log("$scope.tableDataedited", $scope.tableData);
             $scope.totalAmount = 0;
             for (var i = 0; i < $scope.tableData.length; i++) {
@@ -159,8 +165,8 @@ angular.module('kamakshiJewellersApp')
 
             $scope.grandAmount = $scope.totalAmount - $scope.disAmount;
         }
-        
-        $scope.calculateChange = function (p,ga) {
+
+        $scope.calculateChange = function (p, ga) {
 
             $scope.change = p - ga;
         }
@@ -186,9 +192,9 @@ angular.module('kamakshiJewellersApp')
             var pay = document.getElementById("pay").value;
             var chang = document.getElementById("chang").value;
             var invNum = document.getElementById("invNum").value;
-            
+
             var newWin = window.open("");
-            newWin.document.write('<html><head><style>.hideActionColumn{display:none;}table#printTable,th,td{border:1px solid black;border-collapse:collapse}.align-right{text-align:right;}#headingTable table,#headingTable th,#headingTable td{border:none}</style></head><body><table width="100%" id="headingTable"><tbody><tr><td width="70%"><div><h1>SAI GANESH MEDICAL</h1></div><div><p style="margin:0;">#12, Behind Shell Petrol Bunk,</p><p style="margin:0;">Kengeri Satellite Town,</p><p style="margin:0;">Bengaluru-60</p></div><br><div><p style="margin:0;"><label style="font-weight:bold;">Phone:</label><span>0132345754</span>&nbsp;<label style="font-weight:bold;">Mobile:</label><span>9880368186</span></p><p style="margin:0;"><label style="font-weight:bold;">Website:</label><span>www.saiganeshmedicals.com</span></p><p style="margin:0;"><label style="font-weight:bold;">TIN No:</label><span>5451468615865</span></p><p style="margin:0;"><label style="font-weight:bold;">DL No:</label><span>5451468615865</span></p><p style="margin:0;"><label style="font-weight:bold;">CST No:</label><span>5451468615865</span></p></div></td><td width="30%" style="vertical-align:top"><div><p><label style="font-weight:bold;font-size:20px;">Invoice No:</label><span>'+invNum+'</span></p><p><label style="font-weight:bold;font-size:20px;">Invoice Date:</label><span>'+$scope.invDate+'</span></p></div></td></tr></tbody></table><br>'+tableToPrint.outerHTML +'<br><table width="100%" id="headingTable"><tbody><tr><td width="70%"></td><td width="30%" class="align-right" style="vertical-align:top"><div><p><label style="font-weight:bold;font-size:16px;">Total Amount:</label><span>'+totAmt+'</span></p><p><label style="font-weight:bold;font-size:16px;">Discount:</label><span>'+dis+'</span></p><p><label style="font-weight:bold;font-size:16px;">Gross Amount:</label><span>'+graAmt+'</span></p><p><label style="font-weight:bold;font-size:16px;">Paid:</label><span>'+pay+'</span></p><p><label style="font-weight:bold;font-size:16px;">Change:</label><span>'+chang+'</span></p></div></td></tr></tbody></table></body></html>');
+            newWin.document.write('<html><head><style>.hideActionColumn{display:none;}table#printTable,th,td{border:1px solid black;border-collapse:collapse}.align-right{text-align:right;}#headingTable table,#headingTable th,#headingTable td{border:none}</style></head><body><table width="100%" id="headingTable"><tbody><tr><td width="70%"><div><h1>SAI GANESH MEDICAL</h1></div><div><p style="margin:0;">#12, Behind Shell Petrol Bunk,</p><p style="margin:0;">Kengeri Satellite Town,</p><p style="margin:0;">Bengaluru-60</p></div><br><div><p style="margin:0;"><label style="font-weight:bold;">Phone:</label><span>0132345754</span>&nbsp;<label style="font-weight:bold;">Mobile:</label><span>9880368186</span></p><p style="margin:0;"><label style="font-weight:bold;">Website:</label><span>www.saiganeshmedicals.com</span></p><p style="margin:0;"><label style="font-weight:bold;">TIN No:</label><span>5451468615865</span></p><p style="margin:0;"><label style="font-weight:bold;">DL No:</label><span>5451468615865</span></p><p style="margin:0;"><label style="font-weight:bold;">CST No:</label><span>5451468615865</span></p></div></td><td width="30%" style="vertical-align:top"><div><p><label style="font-weight:bold;font-size:20px;">Invoice No:</label><span>' + invNum + '</span></p><p><label style="font-weight:bold;font-size:20px;">Invoice Date:</label><span>' + $scope.invDate + '</span></p></div></td></tr></tbody></table><br>' + tableToPrint.outerHTML + '<br><table width="100%" id="headingTable"><tbody><tr><td width="70%"></td><td width="30%" class="align-right" style="vertical-align:top"><div><p><label style="font-weight:bold;font-size:16px;">Total Amount:</label><span>' + totAmt + '</span></p><p><label style="font-weight:bold;font-size:16px;">Discount:</label><span>' + dis + '</span></p><p><label style="font-weight:bold;font-size:16px;">Gross Amount:</label><span>' + graAmt + '</span></p><p><label style="font-weight:bold;font-size:16px;">Paid:</label><span>' + pay + '</span></p><p><label style="font-weight:bold;font-size:16px;">Change:</label><span>' + chang + '</span></p></div></td></tr></tbody></table></body></html>');
             newWin.print();
             newWin.close();
 

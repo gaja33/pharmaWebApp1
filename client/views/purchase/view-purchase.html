@@ -20,11 +20,12 @@
 				<th>Balance</th>
 				<th>Grand Total</th>
 				<th>Paid</th>
+                <th>Status</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="purchase in purchases">
 					<td>{{purchase.invoiceNumber}}</td>
-					<td>{{purchase.invoiceDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+					<td>{{purchase.invoiceDate|date:'dd/MM/yyyy'}}</td>
 					<td>{{purchase.supplier}}</td>
 					<td>{{purchase.subTotal}}</td>
 					<td>{{purchase.discount}}</td>
@@ -32,6 +33,7 @@
 					<td>{{purchase.prevBalance}}</td>
 					<td>{{purchase.grandTotal}}</td>
 					<td>{{purchase.paid}}</td>
+					<td><small class="label bg-red" ng-if="purchase.prevBalance != 0">Pending</small><small class="label bg-green" ng-if="purchase.prevBalance == 0">Clear</small></td>
 				</tr>
 			</tbody>
 		</table>

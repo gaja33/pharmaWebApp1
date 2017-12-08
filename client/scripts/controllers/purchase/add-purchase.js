@@ -8,7 +8,7 @@
  * Controller of the jewelleryApp
  */
 angular.module('kamakshiJewellersApp')
-    .controller('AddPurchaseCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
+    .controller('AddPurchaseCtrl', function ($scope, $rootScope, $http, $location, $timeout, $routeParams,$route) {
 
         $scope.Update = false;
         $scope.Add = true;
@@ -77,11 +77,10 @@ angular.module('kamakshiJewellersApp')
             console.log("supName", supName);
             $http.get('/api/purchases?filter[where][supplier]=' + supName).then(function (resp) {
                 console.log("supDetails", resp.data);
-                if(resp.data.length == 0){
+                if (resp.data.length == 0) {
                     $scope.preBalance = 0;
-                }
-                else{
-                    $scope.preBalance = resp.data[resp.data.length-1].prevBalance;
+                } else {
+                    $scope.preBalance = resp.data[resp.data.length - 1].prevBalance;
                 }
             })
         }
@@ -135,7 +134,7 @@ angular.module('kamakshiJewellersApp')
             $http.post('/api/purchases', pObj).then(function (resp) {
                     console.log("resp", resp)
                     purchaseID = resp.data.id;
-                
+
                     /*if (resp.status == 200) {
                     	$scope.purchase = {};
                     	$scope.Purchase.$setPristine();
@@ -167,6 +166,8 @@ angular.module('kamakshiJewellersApp')
                     console.log("Mresp", resp)
                 })
             }, 500)
+            
+            $route.reload();
         }
 
 
