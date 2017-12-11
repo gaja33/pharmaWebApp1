@@ -50,7 +50,7 @@ angular.module('kamakshiJewellersApp')
 
             var URL = '/api/medicines?filter[where][medicineName][like]=%' + val + '%';
             return $http.get(URL).then(function (response) {
-                //console.log(response)
+                console.log(response)
                 return response.data;
             });
         };
@@ -73,7 +73,7 @@ angular.module('kamakshiJewellersApp')
         }
 
         $scope.calculateTotal = function (val) {
-            $scope.sale.amount = val * $scope.sale.selPrice;
+            $scope.sale.amount = val * $scope.sale.pricePerUnit;
             console.log("$scope.sale.amount", $scope.sale.amount)
         }
 
@@ -125,9 +125,12 @@ angular.module('kamakshiJewellersApp')
 
             $scope.totalAmount = 0;
             for (var i = 0; i < $scope.tableData.length; i++) {
-                $scope.totalAmount += $scope.tableData[i].amount;
+                $scope.tableData[i].grandTotal = $scope.tableData[i].amount + ($scope.tableData[i].amount * ($scope.tableData[i].gst/100));
+                
+                $scope.totalAmount += $scope.tableData[i].grandTotal;
             }
             console.log("$scope.totalAmount", $scope.totalAmount);
+            console.log("$scope.tableData", $scope.tableData);
         }
 
 
@@ -135,7 +138,7 @@ angular.module('kamakshiJewellersApp')
             $scope.tableData.splice(idx, 1);
             $scope.totalAmount = 0;
             for (var i = 0; i < $scope.tableData.length; i++) {
-                $scope.totalAmount += $scope.tableData[i].amount;
+                $scope.totalAmount += $scope.tableData[i].grandTotal;
             }
         }
 

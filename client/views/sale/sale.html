@@ -55,8 +55,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Selling Price</label>
-                                <input type="text" class="form-control col-sm-3" ng-model="sale.selPrice" required>
+                                <label>Price Per Unit</label>
+                                <input type="text" class="form-control col-sm-3" ng-model="sale.pricePerUnit" required>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -125,6 +125,8 @@
                                 <th>Dosage</th>
                                 <th>Unit Price</th>
                                 <th>Total Amount</th>
+                                <th>GST(%)</th>
+                                <th>Grand Total</th>
                                 <th class="hideActionColumn">Action</th>
                             </tr>
                         </thead>
@@ -138,8 +140,10 @@
 
                                 </td>
                                 <td>{{table.dosage}}</td>
-                                <td class="align-right">{{table.selPrice}}</td>
+                                <td class="align-right">{{table.pricePerUnit}}</td>
                                 <td class="align-right">{{table.amount}}</td>
+                                <td class="align-right">{{table.gst}}</td>
+                                <td class="align-right">{{table.grandTotal}}</td>
                                 <td class="hideActionColumn"> <span class="glyphicon glyphicon-pencil" ng-if="!showEditFlag" ng-click="showEdit($index)"></span>
                                     <span class="glyphicon glyphicon-floppy-disk" ng-if="showEditFlag" ng-click="saveEditedData($index,table)"></span>
                                     <span class="glyphicon glyphicon-trash" ng-click="delItem($index)"></span>
